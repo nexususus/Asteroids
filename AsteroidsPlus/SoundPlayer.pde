@@ -10,6 +10,7 @@ class SoundPlayer
   SoundFile boomPlayer, popPlayer, gameOverPlayer;
   SoundFile explosionLargeAsteroid, explosionShip, explosionSmallAsteroid;
   SoundFile ohYea, missileLaunch;
+  SoundFile bgMusic; // Background music soundfile
   
   SoundPlayer(PApplet app, float globalVolume) 
   {
@@ -36,6 +37,10 @@ class SoundPlayer
     
     missileLaunch = new SoundFile(app, "MissileLaunch.wav");
     missileLaunch.amp(globalVolume);
+    
+    // set audio and volume of bgMusic
+    bgMusic = new SoundFile(app, "strategist-2.wav");
+    bgMusic.amp(0.1);
   }
 
   void playExplosion() 
@@ -76,5 +81,10 @@ class SoundPlayer
   void playMissileLaunch() 
   {
     missileLaunch.play();
+  }
+  
+  // method to play background music on loop
+  void playbgMusic() {
+    bgMusic.loop();
   }
 }
