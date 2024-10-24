@@ -35,6 +35,9 @@ void setup()
   kbController = new KeyboardController();
   soundPlayer = new SoundPlayer(this, globalVolume);  
 
+  // play background music
+  soundPlayer.playbgMusic();
+  
   currentGameLevel = new StartLevel(this);
   currentGameLevel.start();
 
