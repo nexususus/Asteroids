@@ -44,6 +44,9 @@ void setup()
   // register the function (pre) that will be called
   // by Processing before the draw() function. 
   registerMethod("pre", this);
+
+  // MS Feature: set up the background music to play
+  soundPlayer.playbgMusic();
 }
 
 // Executed before each next frame is drawn. 
