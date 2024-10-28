@@ -35,9 +35,6 @@ void setup()
   kbController = new KeyboardController();
   soundPlayer = new SoundPlayer(this, globalVolume);  
 
-  // play background music
-  soundPlayer.playbgMusic();
-  
   currentGameLevel = new StartLevel(this);
   currentGameLevel.start();
 
@@ -46,6 +43,7 @@ void setup()
   registerMethod("pre", this);
 
   // MS Feature: set up the background music to play
+  // Strategist #2 by Syouki Takahashi
   soundPlayer.playbgMusic();
 }
 
