@@ -70,3 +70,17 @@ class ShieldPowerup extends PowerUp
   void drawOnScreen() {
   }
 }
+
+class MissilePowerup extends PowerUp {
+  AsteroidsGameLevel level;
+  
+  MissilePowerup(PApplet game, int xpos, int ypos, float speed, AsteroidsGameLevel level) {
+    super(game, "powerup.png", xpos, ypos, speed);
+    this.level = level;
+  }
+  
+  void activate() {
+    level.activateMissilePowerup();
+    soundPlayer.playPop();
+  }
+}

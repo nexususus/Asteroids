@@ -7,10 +7,15 @@ class AsteroidsLevel1 extends AsteroidsGameLevel
 {
   float missileSpeed = 200;
   StopWatch powerupSW;
+  boolean shouldSpawnMissilePowerup = false;
   int periodBetweenPU = 10;
   StopWatch addAsteroidsSW;
   int periodBetweenAdds = 5;
   float asteroidSpeed;
+  
+  StopWatch missilePowerupSW;
+  int missilePowerupTime = 10;
+  boolean missilePowerupActive = false;
 
   AsteroidsLevel1(PApplet applet)
   {
@@ -18,6 +23,7 @@ class AsteroidsLevel1 extends AsteroidsGameLevel
 
     powerupSW = new StopWatch();
     addAsteroidsSW = new StopWatch();
+    missilePowerupSW = new StopWatch();
     asteroidSpeed = 3;
   }
 
@@ -43,10 +49,13 @@ class AsteroidsLevel1 extends AsteroidsGameLevel
 
     if (powerupSW.getRunTime() > periodBetweenPU) {
       powerupSW.reset();
-
-      int centerX = game.width/2;
-      int centerY = game.height/2;
-      powerUps.add(new ShieldPowerup(game, centerX, centerY, 100, ship));
+      
+      if (shouldSpawnMissilePowerup)
+        powerUps.add(new MissilePowerup(game, game.width/2, game.height/2, 100, this));
+      else
+        powerUps.add(new ShieldPowerup(game, game.width/2, game.height/2, 100, ship));
+        
+      shouldSpawnMissilePowerup = !shouldSpawnMissilePowerup;
     }
 
     // TEAMS: Example of adding additional asteroids for Infinite Level
@@ -60,6 +69,11 @@ class AsteroidsLevel1 extends AsteroidsGameLevel
      asteroids.add(new BigAsteroid(game, newX, newy, 0, 0.02, asteroidSpeed, random(0, 6.5)));
      }
      */
+     
+    if (missilePowerupSW.getRunTime() > missilePowerupTime && missilePowerupActive) {
+      missilePowerupSW.reset();
+      missilePowerupActive = false;
+    }
   }
 
   void drawBackground() 
@@ -71,6 +85,14 @@ class AsteroidsLevel1 extends AsteroidsGameLevel
   void drawOnScreen() 
   {
     ship.drawOnScreen(); // Draws Energy Bar
+    
+    if (missilePowerupActive) {
+      float xpos = (float)ship.getX() - 30;
+      float ypos = (float)ship.getY() + 40;
+      // Percentage of shield time remaining
+      float pcnt = (float)((missilePowerupTime - missilePowerupSW.getRunTime())/missilePowerupTime);
+      ship.drawBar(color(255, 0, 0), xpos, ypos, pcnt);
+    }
   }
 
   void keyPressed() 
@@ -94,11 +116,16 @@ class AsteroidsLevel1 extends AsteroidsGameLevel
       
       Missile missile = new Missile(game, shipx, shipy);
       missile.setRot(ship.getRot() - 1.5708);
-      missile.setSpeed(speed);
+      missile.setSpeed(missilePowerupActive ? speed*2 : speed);
       missiles.add(missile);
 
       ship.energy -= ship.deplete;
     }
+  }
+  
+  public void activateMissilePowerup() {
+    missilePowerupSW.reset();
+    missilePowerupActive = true;
   }
 }
 
@@ -108,13 +135,19 @@ class AsteroidsLevel2 extends AsteroidsGameLevel
 {
   float missileSpeed = 400;
   StopWatch powerupSW;
-  int periodBetweenPU = 10;
+  boolean shouldSpawnMissilePowerup = false;
+  int periodBetweenPU = 5;
+  
+  StopWatch missilePowerupSW;
+  int missilePowerupTime = 5;
+  boolean missilePowerupActive = false;
 
   AsteroidsLevel2(PApplet applet)
   {
     super(applet);
 
     powerupSW = new StopWatch();
+    missilePowerupSW = new StopWatch();
   }
 
   void start()
@@ -136,7 +169,18 @@ class AsteroidsLevel2 extends AsteroidsGameLevel
 
     if (powerupSW.getRunTime() > periodBetweenPU) {
       powerupSW.reset();
-      powerUps.add(new ShieldPowerup(game, game.width/2, game.height/2, 100, ship));
+      
+      if (shouldSpawnMissilePowerup)
+        powerUps.add(new MissilePowerup(game, game.width/2, game.height/2, 100, this));
+      else
+        powerUps.add(new ShieldPowerup(game, game.width/2, game.height/2, 100, ship));
+        
+      shouldSpawnMissilePowerup = !shouldSpawnMissilePowerup;
+    }
+    
+    if (missilePowerupSW.getRunTime() > missilePowerupTime && missilePowerupActive) {
+      missilePowerupSW.reset();
+      missilePowerupActive = false;
     }
   }
 
@@ -149,6 +193,14 @@ class AsteroidsLevel2 extends AsteroidsGameLevel
   void drawOnScreen() 
   {
     ship.drawOnScreen(); // Draws Energy Bar
+    
+    if (missilePowerupActive) {
+      float xpos = (float)ship.getX() - 30;
+      float ypos = (float)ship.getY() + 40;
+      // Percentage of shield time remaining
+      float pcnt = (float)((missilePowerupTime - missilePowerupSW.getRunTime())/missilePowerupTime);
+      ship.drawBar(color(255, 0, 0), xpos, ypos, pcnt);
+    }
   }
 
   void keyPressed() 
@@ -171,10 +223,15 @@ class AsteroidsLevel2 extends AsteroidsGameLevel
       int shipy = (int)ship.getY();
       Missile missile = new Missile(game, shipx, shipy);
       missile.setRot(ship.getRot() - 1.5708);
-      missile.setSpeed(speed);
+      missile.setSpeed(missilePowerupActive ? speed*1.5 : speed);
       missiles.add(missile);
 
       ship.energy -= ship.deplete;
     }
+  }'
+  
+  public void activateMissilePowerup() {
+    missilePowerupSW.reset();
+    missilePowerupActive = true;
   }
 }

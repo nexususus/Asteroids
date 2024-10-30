@@ -13,6 +13,19 @@ class KeyboardController
       case ' ':
         space = true;
         break;
+        
+      case 'w':
+        up = true;
+        break;
+      case 'a':
+        left = true;
+        break;
+      case 's':
+        down = true;
+        break;
+      case 'd':
+        right = true;
+        break;
     }
     
     switch(code) {
@@ -37,6 +50,19 @@ class KeyboardController
     switch(key) {
       case ' ':
         space = false;
+        break;
+        
+      case 'w':
+        up = false;
+        break;
+      case 'a':
+        left = false;
+        break;
+      case 's':
+        down = false;
+        break;
+      case 'd':
+        right = false;
         break;
     }
 

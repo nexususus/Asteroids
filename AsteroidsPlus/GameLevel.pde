@@ -76,6 +76,8 @@ class StartLevel extends GameLevel
     startButton = new StartButton(game, width/2, height/2, this);
     remainingLives = totalLives;
     gameState = GameState.Running;
+    
+    soundPlayer.playbgMusic();
   }
 
   void stop()

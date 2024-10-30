@@ -209,4 +209,6 @@ abstract class AsteroidsGameLevel extends GameLevel
     asteroids.add(new SmallAsteroid(game, xpos, ypos, 1, -0.01, 44, PI*1));
     asteroids.add(new SmallAsteroid(game, xpos, ypos, 2, 0.01, 44, PI*1.7));
   }
+  
+  public abstract void activateMissilePowerup();
 }

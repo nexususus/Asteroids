@@ -44,7 +44,6 @@ void setup()
 
   // MS Feature: set up the background music to play
   // Strategist #2 by Syouki Takahashi
-  soundPlayer.playbgMusic();
 }
 
 // Executed before each next frame is drawn. 
