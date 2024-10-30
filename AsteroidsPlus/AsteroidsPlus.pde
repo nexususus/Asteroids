@@ -14,6 +14,8 @@ PImage background;
 
 KeyboardController kbController;
 SoundPlayer soundPlayer;
+String shipImage = "ships2.png";
+float shipImageScale = .5;
 StopWatch stopWatch = new StopWatch();
 int totalLives = 3;
 int remainingLives;

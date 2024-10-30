@@ -13,6 +13,13 @@ public abstract class Button
     sprite.setXY(xpos, ypos);
     sprite.setVelXY(0, 0);
   }
+  
+  Button(PApplet applet, String imageFilename, int cols, int rows, int xpos, int ypos)
+  {
+    sprite = new Sprite(applet, imageFilename, cols, rows, 70);
+    sprite.setXY(xpos, ypos);
+    sprite.setVelXY(0, 0);
+  }
 
   void setInactive() 
   {
@@ -25,6 +32,10 @@ public abstract class Button
      if(sprite.isOver(xpos, ypos)) {
        onPress();
      }
+  }
+  
+  protected void setScale(float scale) {
+    sprite.setScale(scale);
   }
   
   boolean isPressed(int xpos, int ypos)
@@ -52,5 +63,25 @@ public class StartButton extends Button
   public void onPress()
   {
     level.gameState = GameState.Finished;
+  }
+}
+
+public class ShipImageChoiceButton extends Button 
+{
+  String imageFile;
+  float imageScale;
+  
+  ShipImageChoiceButton(PApplet applet, String imageFile, float imageScale, int xpos, int ypos) {
+    super(applet, imageFile, 2, 1, xpos, ypos);
+    setScale(imageScale);
+    
+    this.imageScale = imageScale;
+    this.imageFile = imageFile;
+  }
+
+  public void onPress()
+  {
+    shipImage = imageFile;
+    shipImageScale = imageScale;
   }
 }

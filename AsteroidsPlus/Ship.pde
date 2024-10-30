@@ -16,14 +16,14 @@ class Ship extends GameObject
 
   Ship(PApplet game, int xpos, int ypos) 
   {
-    this(game, "ships2.png", xpos, ypos);
-    setScale(.5);
+    this(game, shipImage, shipImageScale, xpos, ypos);
   }
 
   // The image file must contain two frames. See Ships2.png as example. 
-  Ship(PApplet game, String imageFilename, int xpos, int ypos) 
+  Ship(PApplet game, String imageFilename, float scale, int xpos, int ypos) 
   {
     super(game, imageFilename, 2, 1, 50);
+    setScale(.5);
 
     rotation = 0;
     energy = 1;

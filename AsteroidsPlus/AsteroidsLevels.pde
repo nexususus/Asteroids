@@ -116,7 +116,7 @@ class AsteroidsLevel1 extends AsteroidsGameLevel
       
       Missile missile = new Missile(game, shipx, shipy);
       missile.setRot(ship.getRot() - 1.5708);
-      missile.setSpeed(missilePowerupActive ? speed*2 : speed);
+      missile.setSpeed(missilePowerupActive ? speed*3 : speed);
       missiles.add(missile);
 
       ship.energy -= ship.deplete;
@@ -223,7 +223,7 @@ class AsteroidsLevel2 extends AsteroidsGameLevel
       int shipy = (int)ship.getY();
       Missile missile = new Missile(game, shipx, shipy);
       missile.setRot(ship.getRot() - 1.5708);
-      missile.setSpeed(missilePowerupActive ? speed*1.5 : speed);
+      missile.setSpeed(missilePowerupActive ? speed*1.75 : speed);
       missiles.add(missile);
 
       ship.energy -= ship.deplete;

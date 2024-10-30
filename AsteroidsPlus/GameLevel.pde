@@ -64,6 +64,8 @@ abstract class GameLevel
 class StartLevel extends GameLevel
 {
   StartButton startButton;
+  
+  ShipImageChoiceButton[] shipButtons;
 
   StartLevel(PApplet game)
   {
@@ -73,7 +75,13 @@ class StartLevel extends GameLevel
 
   void start()
   {
-    startButton = new StartButton(game, width/2, height/2, this);
+    startButton = new StartButton(game, width/2, height/2 + 100, this);
+    shipButtons = new ShipImageChoiceButton[]{
+      new ShipImageChoiceButton(game, "ships2.png", .5, width/2 - 100, height/2 - 50),
+      new ShipImageChoiceButton(game, "ships3.png", .8, width/2     , height/2 - 50),
+      new ShipImageChoiceButton(game, "ships4.png", .7, width/2 + 100, height/2 - 50)
+    };
+    
     remainingLives = totalLives;
     gameState = GameState.Running;
     
@@ -83,6 +91,10 @@ class StartLevel extends GameLevel
   void stop()
   {
     startButton.setInactive();
+    
+    for (var button : shipButtons) {
+      button.setInactive();
+    }
   }
 
   void restart()
@@ -122,6 +134,9 @@ class StartLevel extends GameLevel
     //if (startButton.isPressed(mouseX, mouseY)) {
     //  startButton.onPress();
     //}
+    for (var button : shipButtons) {
+      button.activateIfPressed(mouseX, mouseY);
+    }
   }
 }
 
